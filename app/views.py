@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from app.models import Category, Product
 from app.service.date_service import check_datetime
@@ -40,6 +41,18 @@ class CategoryCreate(CreateView):
     template_name = ADDRESS_CREATE_CATEGORY
     model = Category
     fields = CATEGORY_FIELDS
+
+
+class CategoryUpdate(UpdateView):
+    template_name = ADDRESS_CREATE_CATEGORY
+    model = Category
+    fields = CATEGORY_FIELDS
+    success_url = reverse_lazy('app:main')
+
+
+class CategoryDelete(DeleteView):
+    model = Category
+    success_url = reverse_lazy('app:main')
 
 
 class ProductsView(generic.ListView):

@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^(?P<category_slug>[\w-]+)/(?P<slug>[\w-]+)$', views.DetailProductView.as_view(), name='detail_product'),
     url(r'^category/add/$', views.CategoryCreate.as_view(), name='category_create'),
     url(r'^last-added/24/$', views.ProductsView.as_view(), name='last_added'),
+    url(r'^category/(?P<slug>[\w-]+)/$', views.CategoryUpdate.as_view(), name='category_update'),
+    url(r'^category/(?P<slug>[\w-]+)/delete/$', views.CategoryDelete.as_view(), name='category_delete'),
 ]
