@@ -20,7 +20,7 @@
                             <h4><small>{{ category.description }}</small></h4>
 
                             <!-- View Details -->
-                            <a href="{% url 'app:detail_category' category.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                            <a href="{% url 'app:detail_category' category.slug %}" class="btn btn-primary btn-sm" role="button">View Details</a>
 
                             <!-- Delete Category -->
                             <form action="{% url 'app:main' %}" method="post" style="display: inline;">

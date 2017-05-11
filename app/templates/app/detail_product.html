@@ -12,7 +12,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3><strong>Name:</strong> {{ product.name }}</h3>
-                        <h3><strong>Slug:</strong> {{ product.slug }}</h3>
+                        <h3><strong>Price:</strong> {{ product.price }}$</h3>
                     </div>
                 </div>
             </div>
@@ -26,9 +26,9 @@
             </div>
         </div>
         <div class="col-sm-5 col-md-12">
-            <a href="{% url 'app:detail_category' product.category.id %}">
+            <a href="{% url 'app:detail_category' product.category.slug%}">
                     <button type="button" class="btn btn-success">
-                        <span class="glyphicon glyphicon-menu-left"></span>&nbsp; Back to Category
+                        <span class="glyphicon glyphicon-menu-left"></span>&nbsp; Back to {{ product.category.name }}
                     </button>
             </a>
         </div>

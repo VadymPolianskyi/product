@@ -20,8 +20,8 @@
         <div class="col-sm-8 col-md-9">
 
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
-                <li role="presentation" class="active"><a href="{% url 'app:detail_category' category.id %}">View All</a></li>
-                <li role="presentation"><a href="{% url 'app:detail_category' category.id %}">Add New Product</a></li>
+                <li role="presentation" class="active"><a href="{% url 'app:detail_category' category.slug %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'app:detail_category' category.slug %}">Add New Product</a></li>
             </ul>
 
             <div class="panel panel-default">
@@ -45,7 +45,7 @@
                         <tbody>
                         {% for product in category.product_set.all %}
                             <tr>
-                                <td><a href="{% url 'app:detail_product' category.id product.id %}"> {{ product.name }}</a></td>
+                                <td><a href="{% url 'app:detail_product' category.slug product.slug %}"> {{ product.name }}</a></td>
                                 <td>{{ product.price }}</td>
                                 <td>{{ product.created_at }}</td>
                                 <td>{{ product.description }}</td>
@@ -58,7 +58,13 @@
             </div>
 
         </div>
-
+        <div class="col-sm-5 col-md-12">
+            <a href="{% url 'app:main'%}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-menu-left"></span>&nbsp; Back to Categories
+                    </button>
+            </a>
+        </div>
     </div>
 
 </div>
