@@ -6,7 +6,7 @@
         <!-- Categories -->
         <div class="row">
             <div class="col-sm-12">
-                <h3>{{ user.username }}'s Categories</h3>
+                <h3>{% if user.username %}{{ user.username }}'s {% endif %}Categories</h3>
             </div>
             {% if all_categories %}
                 {% for category in all_categories %}
