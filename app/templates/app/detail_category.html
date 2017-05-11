@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% block title %}Category detail{% endblock %}
+
+{% block body %}
+<div class="container-fluid product-container">
+
+    <div class="row">
+
+        <!-- Left product Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>{{ category.name }}</h1>
+                    <h5>{{ category.description }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Product Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'app:detail_category' category.slug %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'app:product_create' category.slug %}">Add New Product</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Products</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price($)</th>
+                            <th>Created at</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in category.product_set.all %}
+                            <tr>
+                                <td><a href="{% url 'app:detail_product' category.slug product.slug %}"> {{ product.name }}</a></td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.created_at }}</td>
+                                <td>{{ product.description }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-5 col-md-12">
+            <a href="{% url 'app:main'%}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-menu-left"></span>&nbsp; Back to Categories
+                    </button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
