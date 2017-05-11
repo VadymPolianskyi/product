@@ -7,7 +7,7 @@ class Category(models.Model):
     description = models.CharField(max_length=500)
 
     def __str__(self):
-        return self.name + ' - ' + self.description
+        return self.name
 
 
 class Product(models.Model):
@@ -20,4 +20,4 @@ class Product(models.Model):
     modified_at = models.DateField()
 
     def __str__(self):
-        return self.song_title
+        return self.name

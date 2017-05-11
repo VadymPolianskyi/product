@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% block title %}Product detail{% endblock %}
+
+{% block body %}
+<div class="container-fluid product-container">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <h1>Product detail:</h1>
+            <div class="col-sm-5 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3><strong>Name:</strong> {{ product.name }}</h3>
+                        <h3><strong>Slug:</strong> {{ product.slug }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3><strong>Description:</strong></h3>
+                        <h4>{{ product.description }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 col-md-12">
+            <a href="{% url 'app:detail_category' product.category.id %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-menu-left"></span>&nbsp; Back to Category
+                    </button>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
