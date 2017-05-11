@@ -21,7 +21,7 @@
 
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
                 <li role="presentation" class="active"><a href="{% url 'app:detail_category' category.slug %}">View All</a></li>
-                <li role="presentation"><a href="{% url 'app:detail_category' category.slug %}">Add New Product</a></li>
+                <li role="presentation"><a href="{% url 'app:product_create' category.slug %}">Add New Product</a></li>
             </ul>
 
             <div class="panel panel-default">

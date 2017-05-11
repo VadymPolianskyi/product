@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% block title %}Add a New Product{% endblock %}
+{% block categorys_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- Left Category Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>{{ category.name }}</h1>
+                    <h5>{{ category.description }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation"><a href="{% url 'app:detail_category' category.slug %}">View All</a></li>
+                <li role="presentation" class="active"><a href="{% url 'app:product_create' category.slug %}">Add New Song</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add a New Product</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="category" value="{{ category }}">
+                        {% include 'app/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

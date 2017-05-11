@@ -3,13 +3,13 @@ from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.views.generic import CreateView, UpdateView, DeleteView
 
-from app.forms import UserForm
+from app.forms import UserForm, ProductForm
 from app.models import Category, Product
 from app.service.datetime_service import check_datetime
 
@@ -19,6 +19,7 @@ ADDRESS_CREATE_CATEGORY = 'app/create_category.html'
 ADDRESS_REGISTRATION = 'app/registration_form.html'
 ADDRESS_DETAIL_CATEGORY = 'app/detail_category.html'
 ADDRESS_DETAIL_PRODUCT = 'app/detail_product.html'
+ADDRESS_CREATE_PRODUCT = 'app/create_product.html'
 ADDRESS_LOGIN_USER = 'app/login.html'
 CATEGORY_FIELDS = ['name', 'slug', 'description']
 
@@ -69,7 +70,7 @@ class ProductsView(generic.ListView):
 
     def get_queryset(self):
         products = Product.objects.all()
-        result= set()
+        result = set()
         for product in products:
             if check_datetime(product.created_at):
                 result.add(product)
@@ -128,3 +129,23 @@ def login_user(request):
             return render(request, ADDRESS_LOGIN_USER, {'error_message': 'Invalid login'})
     return render(request, ADDRESS_LOGIN_USER)
 
+
+def create_song(request, category_slug):
+    form = ProductForm(request.POST or None, request.FILES or None)
+    category = get_object_or_404(Category, slug=category_slug)
+    context = {
+        'category': category,
+        'form': form,
+    }
+    if form.is_valid():
+        products = category.product_set.all()
+        for p in products:
+            if p.name == form.cleaned_data.get("name"):
+                context['error_message'] = 'You already added that product'
+                return render(request, ADDRESS_CREATE_PRODUCT, context)
+        product = form.save(commit=False)
+        product.category = category
+        product.save()
+        return render(request, ADDRESS_DETAIL_CATEGORY, {'category': category})
+
+    return render(request, ADDRESS_CREATE_PRODUCT, context)
