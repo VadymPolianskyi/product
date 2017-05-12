@@ -1,0 +1,7 @@
+[client]
+database = PRODUCT_DEV
+host = localhost
+user = root
+port = 3306
+password = root
+default-character-set = utf8
